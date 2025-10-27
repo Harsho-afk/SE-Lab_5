@@ -10,6 +10,8 @@ def addItem(item="default", qty=0, logs=None):
         logs = []
     if not item:
         return
+    if not isinstance(qty,int) or qty < 0:
+        return
     stock_data[item] = stock_data.get(item, 0) + qty
     logs.append("%s: Added %d of %s" % (str(datetime.now()), qty, item))
 
@@ -50,7 +52,7 @@ def checkLowItems(threshold=5):
 def main():
     addItem("apple", 10)
     addItem("banana", -2)
-    addItem(123, "ten")  # invalid types, no check
+    addItem(123, "ten")
     removeItem("apple", 3)
     removeItem("orange", 1)
     print("Apple stock:", getQty("apple"))
